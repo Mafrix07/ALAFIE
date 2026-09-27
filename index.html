@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#063D32">
+  <title>Alafiè — Santé & Suivi des médicaments</title>
+  
+  <!-- Polices Google : DM Sans (corps lisible) & Manrope (titres modernes) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-layout">
+  
+  <!-- ==========================================
+       SIDEBAR DESKTOP (> 900px)
+       ========================================== -->
+  <aside class="sidebar-desktop">
+    <div class="sidebar-brand">
+      <img src="IMG_1284.PNG" alt="Logo Alafiè" class="app-logo">
+      <div class="brand-text">
+        <span class="brand-name">ALAFIÈ</span>
+        <span class="brand-tagline">Santé & Bien-être</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-screen="home">
+        <span class="nav-icon">⌂</span>
+        <span class="nav-label">Accueil</span>
+      </button>
+      <button class="nav-btn" data-screen="medicaments">
+        <span class="nav-icon">💊</span>
+        <span class="nav-label">Médicaments</span>
+      </button>
+      <button class="nav-btn" data-screen="rappels">
+        <span class="nav-icon">⏰</span>
+        <span class="nav-label">Mes Rappels</span>
+      </button>
+      <button class="nav-btn" data-screen="securite">
+        <span class="nav-icon">🛡️</span>
+        <span class="nav-label">Sécurité & Profil</span>
+      </button>
+      <button class="nav-btn" data-screen="pharmacies">
+        <span class="nav-icon">✚</span>
+        <span class="nav-label">Pharmacies</span>
+      </button>
+      <button class="nav-btn" data-screen="contact">
+        <span class="nav-icon">✉️</span>
+        <span class="nav-label">Avis Pharmacien</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-privacy">
+      <div class="privacy-badge">🔒 Privacy by Design</div>
+      <p>Vos données de santé restent chiffrées sur votre appareil (Loi togolaise IPDCP).</p>
+      <div class="offline-pill">● Mode Hors-ligne actif</div>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       CONTENEUR PRINCIPAL (MOBILE & TABLETTE)
+       ========================================== -->
+  <div class="main-wrapper">
+    
+    <!-- Topbar Mobile & Tablette -->
+    <header class="app-topbar">
+      <div class="topbar-left">
+        <img src="IMG_1284.PNG" alt="Alafiè" class="mobile-logo">
+        <div>
+          <span class="topbar-greeting">Bonjour 👋</span>
+          <h1 class="topbar-title" id="page-title">Accueil</h1>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="sync-badge" title="Toutes les fiches sont synchronisées pour un usage sans réseau">
+          <span class="dot-online">●</span> Hors-ligne prêt
+        </span>
+        <button class="btn-avatar" data-go="securite" aria-label="Profil et sécurité">
+          <span>MF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ZONE DE CONTENU DÉFILABLE -->
+    <main class="app-content">
+
+      <!-- ====================================================
+           1. ÉCRAN ACCUEIL (#home)
+           ==================================================== -->
+      <section id="home" class="screen-view active-screen">
+        
+        <!-- Hero Compact Mobile -->
+        <div class="hero-card">
+          <div class="hero-content">
+            <span class="badge-trust">✓ Validé par un pharmacien</span>
+            <h2>Votre santé,<br><em>notre priorité.</em></h2>
+            <p>Comprenez vos médicaments et suivez vos prises en toute sérénité, même sans réseau.</p>
+            <button class="btn-primary" data-go="medicaments">
+              <span>Rechercher un médicament</span>
+              <span class="arrow-icon">→</span>
+            </button>
+          </div>
+          <div class="hero-graphic">
+            <img src="IMG_1284.PNG" alt="Feuille Alafiè" class="hero-leaf">
+          </div>
+        </div>
+
+        <!-- Prochaine Prise Immédiate -->
+        <div class="next-dose-banner" id="next-dose-widget">
+          <div class="next-dose-icon">⏰</div>
+          <div class="next-dose-info">
+            <span class="section-micro">PROCHAINE PRISE DU JOUR</span>
+            <strong id="next-dose-med">Amoxicilline 1 g</strong>
+            <small id="next-dose-time">Aujourd'hui à 12:00 · 1 comprimé avec de l'eau</small>
+          </div>
+          <button class="btn-action-small" id="btn-quick-take">
+            ✓ Marquer pris
+          </button>
+        </div>
+
+        <!-- Suivi & Observance du jour -->
+        <div class="section-title-row">
+          <div>
+            <span class="section-micro">AUJOURD'HUI</span>
+            <h3>Suivi des traitements</h3>
+          </div>
+          <button class="btn-link" data-go="rappels">Détails →</button>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-icon icon-mint">◷</div>
+            <div class="stat-data">
+              <span class="stat-label">Prises du jour</span>
+              <strong class="stat-value" id="stat-doses-ratio">2 / 3</strong>
+            </div>
+            <div class="stat-bar"><div class="stat-fill" id="stat-bar-fill" style="width: 67%;"></div></div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon icon-gold">★</div>
+            <div class="stat-data">
+              <span class="stat-label">Observance</span>
+              <strong class="stat-value" id="stat-adherence-pct">67%</strong>
+            </div>
+            <div class="stat-bar"><div class="stat-fill stat-gold" id="stat-bar-gold" style="width: 67%;"></div></div>
+          </div>
+
+          <div class="stat-card stat-clickable" data-go="securite">
+            <div class="stat-icon icon-danger">⚠</div>
+            <div class="stat-data">
+              <span class="stat-label">Alerte sécurité</span>
+              <strong class="stat-value text-danger">1 à vérifier</strong>
+            </div>
+            <div class="stat-badge-danger">Interaction</div>
+          </div>
+        </div>
+
+        <!-- Accès Rapide 4 Boutons -->
+        <div class="section-title-row">
+          <div>
+            <span class="section-micro">SERVICES</span>
+            <h3>Accès rapide</h3>
+          </div>
+        </div>
+
+        <div class="quick-grid">
+          <button class="quick-btn" data-go="medicaments">
+            <span class="quick-emoji">💊</span>
+            <div class="quick-texts">
+              <b>Médicaments</b>
+              <small>Posologies & fiches claires</small>
+            </div>
+          </button>
+          
+          <button class="quick-btn" data-go="rappels">
+            <span class="quick-emoji">⏰</span>
+            <div class="quick-texts">
+              <b>Mes rappels</b>
+              <small>Planning horaire des prises</small>
+            </div>
+          </button>
+
+          <button class="quick-btn" data-go="securite">
+            <span class="quick-emoji">🛡️</span>
+            <div class="quick-texts">
+              <b>Sécurité</b>
+              <small>Allergies & interactions</small>
+            </div>
+          </button>
+
+          <button class="quick-btn" data-go="pharmacies">
+            <span class="quick-emoji">✚</span>
+            <div class="quick-texts">
+              <b>Pharmacies</b>
+              <small>Gardes Lomé hors-ligne</small>
+            </div>
+          </button>
+        </div>
+
+        <!-- Bannière Contact Pharmacien -->
+        <div class="pharmacist-card" data-go="contact">
+          <div class="pharmacist-avatar">👨🏾‍⚕️</div>
+          <div class="pharmacist-texts">
+            <b>Une question sur votre ordonnance ?</b>
+            <p>Posez-la directement à notre équipe de pharmaciens togolais.</p>
+          </div>
+          <button class="btn-outline-white">Écrire →</button>
+        </div>
+
+        <!-- Confiance & Confidentialité Locale -->
+        <div class="privacy-guarantee-card">
+          <div class="privacy-head">
+            <span class="shield-icon">🔒</span>
+            <strong>Vos données médicales restent strictement privées</strong>
+          </div>
+          <ul class="privacy-points">
+            <li>Aucun compte obligatoire pour consulter les fiches et créer ses rappels.</li>
+            <li>Données de santé stockées localement et chiffrées sur votre smartphone.</li>
+            <li>Conforme à la loi togolaise n° 2019-014 (IPDCP).</li>
+          </ul>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           2. ÉCRAN MÉDICAMENTS (#medicaments)
+           ==================================================== -->
+      <section id="medicaments" class="screen-view">
+        <div class="screen-header">
+          <span class="section-micro">CATALOGUE OFFICIEL</span>
+          <h2>Fiches Médicaments</h2>
+          <p class="screen-sub">Informations simplifiées, posologies et équivalents génériques vérifiés.</p>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div class="search-container">
+          <span class="search-icon">🔍</span>
+          <input type="search" id="med-search-input" placeholder="Rechercher par marque ou DCI (ex: Paracétamol)..." autocomplete="off">
+        </div>
+
+        <!-- Filtres rapides -->
+        <div class="filter-chips" id="filter-chips">
+          <button class="chip active" data-filter="all">Tous</button>
+          <button class="chip" data-filter="douleur">Douleur & Fièvre</button>
+          <button class="chip" data-filter="antibiotique">Antibiotiques</button>
+          <button class="chip" data-filter="anti-inflammatoire">Anti-inflammatoires</button>
+          <button class="chip" data-filter="vitamine">Vitamines & Tonus</button>
+        </div>
+
+        <!-- Liste des cartes de médicaments -->
+        <div class="med-list" id="med-list-container">
+          <!-- Injecté dynamiquement par JavaScript avec fallback -->
+        </div>
+
+        <div class="trust-notice-box">
+          <span class="notice-icon">ⓘ</span>
+          <div>
+            <b>Information médicale certifiée</b>
+            <p>Chaque fiche est rédigée et validée par un pharmacien. Alafiè ne vend aucun médicament et ne remplace pas une prescription médicale.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           3. ÉCRAN FICHE DÉTAILLÉE (#drug-detail)
+           ==================================================== -->
+      <section id="drug-detail" class="screen-view">
+        <button class="btn-back" id="btn-back-to-meds">
+          <span class="back-arrow">←</span>
+          <span>Retour au catalogue</span>
+        </button>
+
+        <div class="detail-header-card">
+          <div class="detail-badge-row">
+            <span class="badge-trust">✓ Validé par un pharmacien</span>
+            <span class="badge-form" id="detail-form-badge">Comprimé</span>
+          </div>
+          <h2 id="detail-med-name">Paracétamol 500 mg</h2>
+          <div class="detail-dci-row">
+            <span class="dci-label">DCI (Substance active) :</span>
+            <strong id="detail-med-dci">Paracetamolum</strong>
+          </div>
+          <p class="detail-class" id="detail-med-class">Antalgique et antipyrétique de référence</p>
+          
+          <button class="btn-primary btn-add-treatment" id="btn-open-treatment-modal">
+            <span>+ Ajouter à mon traitement</span>
+          </button>
+        </div>
+
+        <!-- Sections informatives de la fiche -->
+        <div class="detail-sections">
+          
+          <article class="detail-block">
+            <div class="block-title">
+              <span class="block-icon">🎯</span>
+              <h3>À quoi sert ce médicament ?</h3>
+            </div>
+            <p id="detail-indication">Traitement symptomatique des douleurs d'intensité légère à modérée (maux de tête, douleurs dentaires, courbatures) et des états fébriles.</p>
+          </article>
+
+          <article class="detail-block highlight-posology">
+            <div class="block-title">
+              <span class="block-icon">⏱️</span>
+              <h3>Posologie usuelle</h3>
+            </div>
+            <p id="detail-posology"><strong>Adulte et enfant > 27 kg :</strong> 1 à 2 comprimés par prise, à renouveler si nécessaire toutes les 4 à 6 heures. Ne jamais dépasser 3 000 mg (6 comprimés) par jour sans avis médical.</p>
+          </article>
+
+          <article class="detail-block">
+            <div class="block-title">
+              <span class="block-icon">💧</span>
+              <h3>Comment le prendre ?</h3>
+            </div>
+            <p id="detail-administration">Par voie orale avec un grand verre d'eau. Peut être pris indifféremment pendant ou en dehors des repas.</p>
+          </article>
+
+          <article class="detail-block block-warning">
+            <div class="block-title">
+              <span class="block-icon">⚠️</span>
+              <h3>Précautions & Contre-indications</h3>
+            </div>
+            <ul class="detail-bullets" id="detail-precautions">
+              <li>Contre-indiqué en cas de maladie grave du foie (insuffisance hépatique).</li>
+              <li>Attention aux surdosages : vérifiez qu'aucun autre traitement en cours ne contient de paracétamol.</li>
+              <li>Éviter la consommation conjointe d'alcool.</li>
+            </ul>
+          </article>
+
+          <article class="detail-block">
+            <div class="block-title">
+              <span class="block-icon">🔄</span>
+              <h3>Équivalents génériques disponibles</h3>
+            </div>
+            <p class="generics-intro">Ces médicaments contiennent la même substance active et sont interchangeables :</p>
+            <div class="generics-tags" id="detail-generics">
+              <span class="generic-chip">Doliprane®</span>
+              <span class="generic-chip">Efferalgan®</span>
+              <span class="generic-chip">Dafalgan®</span>
+              <span class="generic-chip">Paracétamol Biogaran</span>
+            </div>
+          </article>
+
+          <article class="detail-block">
+            <div class="block-title">
+              <span class="block-icon">⚡</span>
+              <h3>Effets indésirables possibles</h3>
+            </div>
+            <p id="detail-side-effects">Très rares aux doses recommandées : réactions allergiques cutanées (démangeaisons, rougeurs). En cas d'apparition inhabituelle, arrêtez la prise et contactez un soignant.</p>
+          </article>
+
+        </div>
+
+        <div class="detail-bottom-cta">
+          <button class="btn-primary full-width" id="btn-open-treatment-modal-bottom">
+            <span>+ Ajouter à mon traitement quotidien</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           4. ÉCRAN RAPPELS (#rappels)
+           ==================================================== -->
+      <section id="rappels" class="screen-view">
+        <div class="screen-header-row">
+          <div>
+            <span class="section-micro">OBSERVANCE</span>
+            <h2>Mes Rappels</h2>
+            <p class="screen-sub">Planning horaire autonome (fonctionne appareil verrouillé).</p>
+          </div>
+          <button class="btn-primary-small" id="btn-trigger-add-reminder">+ Nouveau</button>
+        </div>
+
+        <!-- Carte Résumé d'observance -->
+        <div class="adherence-dashboard-card">
+          <div class="adherence-text">
+            <b>Suivi du traitement d'aujourd'hui</b>
+            <span id="adherence-counter-text">2 prises sur 3 enregistrées</span>
+            <small class="offline-note">🔔 Notifications locales programmées</small>
+          </div>
+          <div class="adherence-circle">
+            <span class="circle-val" id="adherence-percentage">67%</span>
+            <span class="circle-label">observance</span>
+          </div>
+        </div>
+
+        <!-- Bannière "Tout est à jour" (affichée quand 100%) -->
+        <div class="celebration-banner" id="celebration-banner" style="display: none;">
+          <span class="celeb-icon">🎉</span>
+          <div>
+            <b>Bravo ! Toutes vos prises du jour sont validées.</b>
+            <p>Votre suivi médical est parfaitement à jour pour aujourd'hui.</p>
+          </div>
+        </div>
+
+        <!-- Timeline des prises -->
+        <div class="section-title-row">
+          <div>
+            <span class="section-micro">CHRONOLOGIE</span>
+            <h3>Prises prévues aujourd'hui</h3>
+          </div>
+        </div>
+
+        <div class="reminder-timeline" id="reminder-timeline">
+          <!-- Cartes de prises gérées dynamiquement en JS -->
+        </div>
+
+        <div class="battery-tip-box">
+          <span class="tip-icon">💡</span>
+          <div>
+            <b>Astuce téléphones Android (Tecno, Infinix, etc.)</b>
+            <p>Pour ne jamais manquer une alarme sans réseau, autorisez Alafiè à s'exécuter sans restriction de batterie dans vos paramètres.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           5. ÉCRAN SÉCURITÉ (#securite)
+           ==================================================== -->
+      <section id="securite" class="screen-view">
+        <div class="screen-header">
+          <span class="section-micro">PRÉVENTION</span>
+          <h2>Sécurité Médicamenteuse</h2>
+          <p class="screen-sub">Vérification automatique des risques entre vos allergies et vos ordonnances.</p>
+        </div>
+
+        <!-- Alerte Risque Élevé Clinique -->
+        <div class="risk-card risk-danger">
+          <div class="risk-badge-header">
+            <span class="risk-level-tag tag-high">🔴 Risque élevé détecté</span>
+            <span class="risk-date">Aujourd'hui</span>
+          </div>
+          <div class="risk-body">
+            <h4>Incompatibilité potentielle majeure</h4>
+            <p>
+              Une incompatibilité a été identifiée entre votre allergie déclarée à la <strong>Pénicilline</strong> et la prise d'<strong>Amoxicilline 1 g</strong> (antibiotique de la famille des pénicillines).
+            </p>
+            <div class="risk-action-notice">
+              <span class="notice-symbol">⚠️</span>
+              <p><strong>Parlez-en à un pharmacien ou à votre médecin avant toute prise.</strong> Ne modifiez pas votre traitement sans accompagnement d'un professionnel de santé.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grille de vos antécédents médicaux déclarés -->
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div>
+              <span class="section-micro">ANTÉCÉDENTS</span>
+              <h3>Vos allergies déclarées</h3>
+            </div>
+            <button class="btn-secondary-small" id="btn-add-allergy">+ Ajouter</button>
+          </div>
+          <div class="allergy-tags" id="allergy-tags-container">
+            <span class="allergy-pill pill-danger">
+              <span>Allergie : Pénicilline</span>
+              <button class="btn-tag-remove" title="Supprimer">×</button>
+            </span>
+            <span class="allergy-pill">
+              <span>Allergie : Aspirine (AINS)</span>
+              <button class="btn-tag-remove" title="Supprimer">×</button>
+            </span>
+          </div>
+          <p class="profile-note">Ces informations ne quittent jamais votre appareil et servent uniquement à vérifier la compatibilité des fiches.</p>
+        </div>
+
+        <!-- Traitements actifs surveillés -->
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div>
+              <span class="section-micro">TRAITEMENTS EN COURS</span>
+              <h3>Médicaments surveillés</h3>
+            </div>
+          </div>
+          <div class="monitored-drugs-list" id="monitored-drugs-list">
+            <div class="monitored-row warning-row">
+              <div class="med-dot red-dot"></div>
+              <div class="med-monitored-text">
+                <strong>Amoxicilline 1 g</strong>
+                <small>1 comprimé · 1x / jour · Risque allergique actif</small>
+              </div>
+              <span class="badge-status-danger">À vérifier</span>
+            </div>
+
+            <div class="monitored-row">
+              <div class="med-dot green-dot"></div>
+              <div class="med-monitored-text">
+                <strong>Paracétamol 500 mg</strong>
+                <small>1 comprimé · 3x / jour · Compatible</small>
+              </div>
+              <span class="badge-status-ok">Sans conflit</span>
+            </div>
+
+            <div class="monitored-row">
+              <div class="med-dot green-dot"></div>
+              <div class="med-monitored-text">
+                <strong>Vitamine C 500 mg</strong>
+                <small>1 comprimé · 1x / jour · Compatible</small>
+              </div>
+              <span class="badge-status-ok">Sans conflit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charte de protection IPDCP -->
+        <div class="privacy-card-banner">
+          <div class="privacy-icon">🛡️</div>
+          <div>
+            <b>Protection stricte de vos données de santé</b>
+            <p>Aucune inscription nominative, aucun identifiant transmis. Toutes les comparaisons s'exécutent en local sur votre processeur conformément à la loi togolaise n° 2019-014.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================
+           6. ÉCRAN PHARMACIES DE GARDE (#pharmacies)
+           ==================================================== -->
+      <section id="pharmacies" class="screen-view">
+        <div class="screen-header-row">
+          <div>
+            <span class="section-micro">OFFICINES DE GARDE</span>
+            <h2>Pharmacies de garde</h2>
+            <p class="screen-sub">Lomé & environs · Liste de la semaine téléchargeable hors-ligne.</p>
+          </div>
+          <span class="badge-offline-active">● Hors-ligne</span>
+        </div>
+
+        <!-- Sélecteur de quartier -->
+        <div class="filter-chips">
+          <button class="chip active">Tout Lomé</button>
+          <button class="chip">Centre-ville</button>
+          <button class="chip">Tokoin</button>
+          <button class="chip">Bè & Port</button>
+          <button class="chip">Adidogomé</button>
+        </div>
+
+        <!-- Liste des pharmacies -->
+        <div class="pharmacy-grid">
+          
+          <article class="pharmacy-card">
+            <div class="pharmacy-icon-box">✚</div>
+            <div class="pharmacy-details">
+              <div class="pharmacy-top">
+                <h4>Pharmacie Centrale de Lomé</h4>
+                <span class="badge-open-24">Ouverte 24h/24</span>
+              </div>
+              <p class="pharmacy-address">📍 Rue du Commerce, Grand Marché (Centre)</p>
+              <div class="pharmacy-phone-row">
+                <span class="phone-label">Urgence garde :</span>
+                <strong>+228 22 21 34 56</strong>
+              </div>
+            </div>
+            <div class="pharmacy-actions">
+              <a href="tel:+22822213456" class="btn-call-pharma">
+                <span>📞 Appeler</span>
+              </a>
+              <button class="btn-secondary-pharma" onclick="notify('Pharmacie Centrale : en face du Grand Marché')">
+                <span>Détails</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="pharmacy-card">
+            <div class="pharmacy-icon-box">✚</div>
+            <div class="pharmacy-details">
+              <div class="pharmacy-top">
+                <h4>Pharmacie Saint Joseph</h4>
+                <span class="badge-open-hours">08h00 — 22h00</span>
+              </div>
+              <p class="pharmacy-address">📍 Boulevard de la Paix, Tokoin Hôpital</p>
+              <div class="pharmacy-phone-row">
+                <span class="phone-label">Urgence garde :</span>
+                <strong>+228 22 21 24 60</strong>
+              </div>
+            </div>
+            <div class="pharmacy-actions">
+              <a href="tel:+22822212460" class="btn-call-pharma">
+                <span>📞 Appeler</span>
+              </a>
+              <button class="btn-secondary-pharma" onclick="notify('Pharmacie Saint Joseph : Proche CHU Tokoin')">
+                <span>Détails</span>
+              </button>
+            </div>
+          </article>
+
+          <article class="pharmacy-card">
+            <div class="pharmacy-icon-box">✚</div>
+            <div class="pharmacy-details">
+              <div class="pharmacy-top">
+                <h4>Pharmacie de l'Océan</h4>
+                <span class="badge-open-hours">08h00 — 22h00</span>
+              </div>
+              <p class="pharmacy-address">📍 Route d'Aného, Zone Portuaire</p>
+              <div class="pharmacy-phone-row">
+                <span class="phone-label">Urgence garde :</span>
+                <strong>+228 22 25 67 89</strong>
+              </div>
+            </div>
+            <div class="pharmacy-actions">
+              <a href="tel:+22822256789" class="btn-call-pharma">
+                <span>📞 Appeler</span>
+              </a>
+              <button class="btn-secondary-pharma" onclick="notify('Pharmacie de l\'Océan : carrefour du Port')">
+                <span>Détails</span>
+              </button>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Emplacement transparent pour la V2 (Carte) -->
+        <div class="v2-map-placeholder">
+          <div class="v2-map-badge">✦ Prévu en Version 2</div>
+          <div class="v2-map-content">
+            <span class="map-icon">🗺️</span>
+            <b>Carte interactive & Géolocalisation</b>
+            <p>Dans la prochaine version, visualisez les pharmacies de garde les plus proches de votre position avec itinéraire GPS.</p>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================
+           7. ÉCRAN CONTACT PHARMACIEN (#contact)
+           ==================================================== -->
+      <section id="contact" class="screen-view">
+        <div class="screen-header">
+          <span class="section-micro">ÉCOUTE MÉDICALE</span>
+          <h2>Avis & Question au Pharmacien</h2>
+          <p class="screen-sub">Formulaire direct adressé à notre équipe de pharmaciens togolais.</p>
+        </div>
+
+        <div class="contact-card-box">
+          <div class="contact-disclaimer">
+            <span class="doc-icon">👨🏾‍⚕️</span>
+            <div>
+              <b>Service assuré par des professionnels diplômés</b>
+              <p>Chaque réponse est examinée avec rigueur. <strong>Ce service ne remplace pas une consultation médicale d'urgence (SAMU 118 / CHU).</strong> Aucun chatbot automatique n'est utilisé.</p>
+            </div>
+          </div>
+
+          <form id="pharmacist-question-form" class="contact-form">
+            <div class="form-group">
+              <label for="user-name">Votre nom ou prénom (facultatif)</label>
+              <input type="text" id="user-name" placeholder="Ex: Mario" />
+            </div>
+
+            <div class="form-group">
+              <label for="user-contact">Numéro de téléphone ou Email (pour la réponse)</label>
+              <input type="text" id="user-contact" placeholder="Ex: 90 00 00 00 ou email@domaine.tg" required />
+            </div>
+
+            <div class="form-group">
+              <label for="question-subject">Sujet de la demande</label>
+              <select id="question-subject">
+                <option value="posologie">Question sur une posologie ou un dosage</option>
+                <option value="effets">Effet indésirable ou réaction suspecte</option>
+                <option value="generique">Demande d'équivalent générique</option>
+                <option value="autre">Autre question médicale</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="question-text">Votre question détaillée</label>
+              <textarea id="question-text" rows="4" placeholder="Précisez le nom du médicament, vos symptômes et le traitement en cours..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary full-width">
+              <span>Envoyer ma question au pharmacien</span>
+              <span>✉️</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==========================================
+         BOTTOM NAVIGATION BAR MOBILE (Fixe en bas)
+         ========================================== -->
+    <nav class="bottom-nav">
+      <button class="bnav-btn active" data-screen="home">
+        <span class="bnav-icon">⌂</span>
+        <span class="bnav-label">Accueil</span>
+      </button>
+      <button class="bnav-btn" data-screen="medicaments">
+        <span class="bnav-icon">💊</span>
+        <span class="bnav-label">Médicaments</span>
+      </button>
+      <button class="bnav-btn" data-screen="rappels">
+        <span class="bnav-icon">⏰</span>
+        <span class="bnav-label">Rappels</span>
+      </button>
+      <button class="bnav-btn" data-screen="securite">
+        <span class="bnav-icon">🛡️</span>
+        <span class="bnav-label">Sécurité</span>
+      </button>
+      <button class="bnav-btn" data-screen="pharmacies">
+        <span class="bnav-icon">✚</span>
+        <span class="bnav-label">Pharmacies</span>
+      </button>
+    </nav>
+
+  </div>
+</div>
+
+<!-- ====================================================
+     MODAL CONFIGURATION D'UN TRAITEMENT / RAPPEL
+     ==================================================== -->
+<div class="modal-overlay" id="treatment-modal" style="display: none;">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div>
+        <span class="section-micro">PLANIFICATEUR DE PRISES</span>
+        <h3 id="modal-drug-title">Ajouter Paracétamol 500 mg</h3>
+      </div>
+      <button class="btn-modal-close" id="btn-close-modal">✕</button>
+    </div>
+
+    <form id="add-treatment-form" class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Dose par prise</label>
+          <input type="text" id="modal-dose-input" value="1 comprimé" required>
+        </div>
+        <div class="form-group">
+          <label>Fréquence journalière</label>
+          <select id="modal-freq-input">
+            <option value="1">1 fois par jour</option>
+            <option value="2">2 fois par jour</option>
+            <option value="3" selected>3 fois par jour</option>
+            <option value="4">4 fois par jour</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Heure du premier rappel</label>
+        <input type="time" id="modal-time-input" value="08:00" required>
+      </div>
+
+      <div class="form-group">
+        <label>Moment de la prise</label>
+        <select id="modal-moment-input">
+          <option value="Pendant le repas">Pendant le repas</option>
+          <option value="Après le repas" selected>Après le repas</option>
+          <option value="À jeun / Avant le repas">À jeun / Avant le repas</option>
+          <option value="Au coucher">Au coucher</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Durée du traitement</label>
+        <select id="modal-duration-input">
+          <option value="5">5 jours (Traitement ponctuel)</option>
+          <option value="7" selected>7 jours</option>
+          <option value="10">10 jours</option>
+          <option value="30">Traitement continu (Chronique)</option>
+        </select>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="btn-cancel-modal">Annuler</button>
+        <button type="submit" class="btn-primary">
+          <span>Enregistrer le rappel</span>
+          <span>✓</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ====================================================
+     TOAST NOTIFICATIONS (Feedback utilisateur)
+     ==================================================== -->
+<div class="app-toast" id="app-toast" role="status" aria-live="polite">
+  <span class="toast-dot"></span>
+  <span id="toast-message">Action enregistrée</span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
