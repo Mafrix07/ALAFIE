@@ -53,13 +53,13 @@ Alafiè applique une démarche stricte de **Privacy by Design** et d'architectur
 | **Application Mobile** | Flutter (Dart) | Client multiplateforme (Android prioritaire), logique hors-ligne |
 | **Stockage local** | SQLite chiffré (SQLCipher) | Base de données locale sécurisée pour le profil et les fiches |
 | **Notifications** | Notifications locales de l'OS | Alertes de prise fiables même appareil verrouillé et sans réseau |
-| **Back-office** | Web (Node.js & PostgreSQL) | Espace de rédaction et de validation des fiches pour le pharmacien |
+| **Back-office** | Web (Dj & PostgreSQL) | Espace de rédaction et de validation des fiches pour le pharmacien |
 
 ---
 
 ## Équipe projet
 
-* **Mario-Francisco d'ALMEIDA** — Développement de l'application mobile
+* **Mario-Francisco d'ALMEIDA** — Développement de l'application mobile et intégration IA
 * **Mathis AHIANLE** — Développement du back-office et intégration des données
 * **Odilon DJADOU** — Sécurité, chiffrement et conformité
 * **Habib TANTE-OUYI** — Rédaction et validation du contenu médical
